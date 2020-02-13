@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>留言板</title>
-  <link rel="stylesheet" href="./static/bootstrap.css" />
+  <link rel="stylesheet" href="./static/css/bootstrap.css" />
   <style>
     #messages img {
       width: 50px;
@@ -71,7 +71,7 @@
         res.data.forEach(item => {
           var str = `
           <li class="media">
-            <img class="mr-3" src="./static/avatar.png" alt="头像logo" />
+            <img class="mr-3" src="./static/image/avatar.png" alt="头像logo" />
             <div class="media-body">
               <h4>${item.name}</h4>
               <p>${item.content}</p>
@@ -87,18 +87,15 @@
     // 添加留言
     $('#btn_send').click(() => {
       let name = $('#txt_name').val()
-      console.log(name);
-
       let content = $('#txt_content').val()
       $.post('http://192.168.0.110:3000/addMessage', {
         name,
         content
       }).then((res) => {
-
+        $('#txt_name').val('')
+        $('#txt_content').val('')
         getAndShow()
-        alert(res.msg)
       })
-
     })
   </script>
 </body>
