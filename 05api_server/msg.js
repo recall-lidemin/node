@@ -20,7 +20,17 @@ module.exports = {
         });
         return arr
     },
-    add() {
-
+    add(name, content) {
+        let getmsg = fs.readFileSync(dataPath, 'utf-8')
+        let arr = JSON.parse(getmsg)
+        let id = arr[0] ? arr[0].id + 1 : 1
+        let data = {
+            id,
+            name,
+            content,
+            "dt": Date.now()
+        }
+        arr.unshift(data)
+        fs.writeFileSync(dataPath, JSON.stringify(arr))
     }
 }
