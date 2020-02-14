@@ -52,12 +52,10 @@
   </div>
   <script src="./jquery-1.8.1.js"></script>
   <script>
-    // 本地ip
     getAndShow()
-
+    // 获取全部留言
     function getAndShow() {
       $.get('http://192.168.0.110:3000/getMessage').then(res => {
-
         // 页面渲染
         if (res.code !== 200) {
           alert(res.msg)
@@ -82,7 +80,7 @@
 
     // 添加留言
     $('#btn_send').click(() => {
-      let name = $('#userName').val()
+      let name = $('#userName').text()
       let content = $('#txt_content').val()
       $.post('http://192.168.0.110:3000/addMessage', {
         name,
@@ -92,8 +90,8 @@
         getAndShow()
       })
     })
-    // 根据ID，查询用户信息显示
 
+    // 根据ID，查询用户信息显示
     let userID = location.search.substr(6)
 
     $.get('http://192.168.0.110:3000/get', {
