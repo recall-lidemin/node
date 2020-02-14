@@ -1,5 +1,5 @@
 var express = require('express')
-var router = require('./router/student')
+var router = require('./router/studentRouter')
 
 var app = express()
 

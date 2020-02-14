@@ -1,3 +1,13 @@
 # 初始化
-- 初始化页面，功能待进一步完成
+- 模板渲染
 
+# 路由设计
+
+## students(增删改查)
+
+|TYPE  |     URL  | Parameter(get)| 	  Parameter(post) 	     | 返回值
+|------|----------|---------------|------------------------------|------------------
+|GET   |   /query |               |                 	     	 | 所有学生信息Object
+|POST  |   /add   |               | id, name ,gender,age,hobbies | 返回值Object
+|POST  |   /edit  |               | name ,gender,age,hobbies     | 返回值Object
+|GET   |   /del   |     id        | 						     | 返回值Object
