@@ -5,10 +5,13 @@ const USERDATA = 'user.json'
 const userPath = path.join(__dirname, USERDATA)
 
 module.exports = {
-    get() {
+    get(userID) {
         let user = fs.readFileSync(userPath, 'utf-8')
         let arr = JSON.parse(user)
-        return arr
+
+        let data = arr.filter(item => item.userID == userID)
+
+        return data
     },
     reg(userName, passWord) {
         let userData = fs.readFileSync(userPath, 'utf-8')
@@ -22,10 +25,7 @@ module.exports = {
         }
 
         arr.unshift(user)
-        console.log(arr);
-
         fs.writeFileSync(userPath, JSON.stringify(arr))
-
     },
     login(userName, passWord) {
         let userData = fs.readFileSync(userPath, 'utf-8')
@@ -35,8 +35,6 @@ module.exports = {
                 return true
             }
         });
-
-        console.log(newarr);
 
         let login = {
             msg: '',

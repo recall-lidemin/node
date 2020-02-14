@@ -38,13 +38,9 @@
     </div>
     <form id="formArea" style="display: block;">
       <div class="form-group">
-        <label for="username">称呼：</label>
-        <label id="username" type="text">yourname</label>
+        <label for="userName">称呼：</label>
+        <label id="userName" type="text"></label>
         <a href="javascript:;" id="btnQuit">退出</a>
-      </div>
-      <div class="form-group">
-        <label for="txt_name" style="display:none">姓名：</label>
-        <input type="text" id="txt_name" class="form-control">
       </div>
       <div class="form-group" style="display: flex">
         <label for="txt_content" style="display:none">留言：</label>
@@ -86,16 +82,24 @@
 
     // 添加留言
     $('#btn_send').click(() => {
-      let name = $('#txt_name').val()
+      let name = $('#userName').val()
       let content = $('#txt_content').val()
       $.post('http://192.168.0.110:3000/addMessage', {
         name,
         content
       }).then((res) => {
-        $('#txt_name').val('')
         $('#txt_content').val('')
         getAndShow()
       })
+    })
+    // 根据ID，查询用户信息显示
+
+    let userID = location.search.substr(6)
+
+    $.get('http://192.168.0.110:3000/get', {
+      userID
+    }).then((res) => {
+      $('#userName').html(res.data[0].userName)
     })
   </script>
 </body>

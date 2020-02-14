@@ -54,9 +54,8 @@
         userName,
         passWord
       }).then(res => {
-        if (res.code === 200) {
-          alert(res.msg)
-          // location.href = './index.html'
+        if (res.msg === '登陆成功') {
+          location.href = `./index.html?user=${res.data[0].userID}`
         } else {
           alert(res.msg)
         }

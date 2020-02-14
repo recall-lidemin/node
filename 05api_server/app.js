@@ -71,7 +71,6 @@ server.on('request', (req, res) => {
         })
         req.on('end', () => {
             let userUrl = querystring.parse(result)
-            console.log(userUrl);
 
             user.reg(userUrl.userName, userUrl.passWord)
             let data = {
@@ -90,34 +89,27 @@ server.on('request', (req, res) => {
         })
         req.on('end', () => {
             let loginUrl = querystring.parse(result)
-
-            console.log(loginUrl.userName, loginUrl.passWord);
-
             let data = user.login(loginUrl.userName, loginUrl.passWord)
-            console.log(data);
-
-            let login = {
-                code: 200,
-                data: data,
-                msg: '获取成功'
-            }
-            // if (msg === '用户名不存在') {
-            //     login.code = 404
-            //     login.msg = '用户名不存在'
-            //     res.setHeader('content-type', 'application/json;charset=utf-8')
-            //     res.end(JSON.stringify(login))
-            // } else {
-            //     login.msg = '登陆成功'
             res.setHeader('content-type', 'application/json;charset=utf-8')
-            res.end(JSON.stringify(login))
-            // }
+            res.end(JSON.stringify(data))
+
         })
 
+    }
+    // 根据ID获取人员信息接口
+    else if (urlPath.pathname === '/get' && req.method === 'GET') {
+        console.log(urlPath.query.userID);
 
+        let data = {
+            code: 200,
+            data: user.get(urlPath.query.userID)
+        }
+        res.setHeader('content-type', 'application/json;charset=utf-8')
+        res.end(JSON.stringify(data))
     }
     // 否则执行请求本地静态资源
     else {
-        const staticPath = path.join(__dirname, STATIC_FILE, req.url)
+        const staticPath = path.join(__dirname, STATIC_FILE, urlPath.pathname)
         try {
             let static = fs.readFileSync(staticPath, 'utf-8')
             // 获取请求的后缀名 path.extname
