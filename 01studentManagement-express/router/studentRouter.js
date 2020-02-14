@@ -1,10 +1,11 @@
-var student = require('../util/student')
+const student = require('../util/student')
+
 // Express提供了一种包装路由的方式
-var express = require('express')
+const express = require('express')
 // 使用Router方法创建一个路由容器
-var router = express.Router()
+const router = express.Router()
 // 把路由都挂载到容器上
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     student.getMsg((err, data) => {
         if (err) {
             return res.status(500).send('Server error')
@@ -13,6 +14,15 @@ router.get('/', function (req, res) {
             students: data
         })
     })
+})
+
+router.get('/add', (req, res) => {
+    res.render('add.html')
+})
+
+router.post('/add', (req, res) => {
+    console.log(req.body);
+
 })
 // 导出路由容器router
 module.exports = router
