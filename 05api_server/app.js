@@ -83,14 +83,37 @@ server.on('request', (req, res) => {
         })
     }
     // 登陆接口
-    else if (urlPath.pathname === '/login' && req.method === 'get') {
-        let login = {
-            code: 200,
-            data: user.login(),
-            msg: "获取成功"
-        }
-        res.setHeader('content-type', 'application/json;charset=utf-8')
-        res.end(JSON.stringify(login))
+    else if (urlPath.pathname === '/login' && req.method === 'POST') {
+        let result = ''
+        req.on('data', buf => {
+            result += buf
+        })
+        req.on('end', () => {
+            let loginUrl = querystring.parse(result)
+
+            console.log(loginUrl.userName, loginUrl.passWord);
+
+            let data = user.login(loginUrl.userName, loginUrl.passWord)
+            console.log(data);
+
+            let login = {
+                code: 200,
+                data: data,
+                msg: '获取成功'
+            }
+            // if (msg === '用户名不存在') {
+            //     login.code = 404
+            //     login.msg = '用户名不存在'
+            //     res.setHeader('content-type', 'application/json;charset=utf-8')
+            //     res.end(JSON.stringify(login))
+            // } else {
+            //     login.msg = '登陆成功'
+            res.setHeader('content-type', 'application/json;charset=utf-8')
+            res.end(JSON.stringify(login))
+            // }
+        })
+
+
     }
     // 否则执行请求本地静态资源
     else {

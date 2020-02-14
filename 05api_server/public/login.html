@@ -41,17 +41,25 @@
   <script>
     $('#btn').click(function () {
       // 获取用户名和密码
-      let name = $('#username').val().trim()
-      let password = $('#password').val().trim()
+      let userName = $('#username').val().trim()
+      let passWord = $('#password').val().trim()
 
       // 判断是否为空
-      if (name === '' || password === '') {
+      if (userName === '' || passWord === '') {
         alert('不能为空')
         return
       }
       // 请求
-      $.get('http://192.168.0.110:3000/login').then(res => {
-
+      $.post('http://192.168.0.110:3000/login', {
+        userName,
+        passWord
+      }).then(res => {
+        if (res.code === 200) {
+          alert(res.msg)
+          // location.href = './index.html'
+        } else {
+          alert(res.msg)
+        }
       })
     });
   </script>
