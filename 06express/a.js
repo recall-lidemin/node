@@ -11,6 +11,6 @@ let arr = [{
 ].find(item => item.id === 2)
 
 console.log(arr);
-if (arr) {
+if (null) {
     console.log(arr);
 }

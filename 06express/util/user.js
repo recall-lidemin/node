@@ -21,13 +21,21 @@ module.exports = {
         })
     },
     get(id, callback) {
+
         fs.readFile(userPath, 'utf-8', (err, data) => {
             if (err) {
                 return callback(err)
             }
             let arr = JSON.parse(data).find(item => item.id == id)
+            if (!arr) {
+                return callback({
+                    code: 404,
+                    msg: '获取失败'
+                })
+            }
             callback(null, arr)
         })
+
     },
     login(userName, passWord, callback) {
         fs.readFile(userPath, 'utf-8', (err, data) => {
@@ -35,6 +43,12 @@ module.exports = {
                 return callback(err)
             }
             let loginInfo = JSON.parse(data).find(item => item.name === userName && item.password === passWord)
+            if (!loginInfo) {
+                return callback({
+                    code: 404,
+                    msg: '获取失败'
+                })
+            }
             callback(null, loginInfo)
         })
     }

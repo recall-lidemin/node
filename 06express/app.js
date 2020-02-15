@@ -43,7 +43,7 @@ app.post('/add', upload.single('cover'), (req, res) => {
 app.post('/login', (req, res) => {
     user.login(req.body.name, req.body.password, (err, data) => {
         if (err) {
-            return res.status(500).send('server error')
+            return res.status(500).send(err)
         }
         if (!data) {
             return res.send({
@@ -67,7 +67,12 @@ app.get('/getInfo', (req, res) => {
         if (err) {
             return res.status(500).send(err)
         }
-        res.send(data)
+        delete data.password
+        res.send({
+            code: 200,
+            data: data,
+            msg: '获取成功'
+        })
     })
 })
 
