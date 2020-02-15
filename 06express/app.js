@@ -40,6 +40,37 @@ app.post('/add', upload.single('cover'), (req, res) => {
     })
 })
 
+app.post('/login', (req, res) => {
+    user.login(req.body.name, req.body.password, (err, data) => {
+        if (err) {
+            return res.status(500).send('server error')
+        }
+        if (!data) {
+            return res.send({
+                code: 404,
+                msg: '登陆失败'
+            })
+        }
+        res.send({
+            code: 200,
+            data: data.id,
+            msg: '登陆成功'
+        })
+    })
+})
+
+app.get('/getInfo', (req, res) => {
+    let id = req.query.id
+    console.log(id);
+
+    user.get(id, (err, data) => {
+        if (err) {
+            return res.status(500).send(err)
+        }
+        res.send(data)
+    })
+})
+
 app.listen(3000, () => {
     console.log('Server is running');
 })

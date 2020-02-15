@@ -20,12 +20,22 @@ module.exports = {
             })
         })
     },
-    get(callback) {
+    get(id, callback) {
         fs.readFile(userPath, 'utf-8', (err, data) => {
             if (err) {
                 return callback(err)
             }
-            callback(null, JSON.parse(data))
+            let arr = JSON.parse(data).find(item => item.id == id)
+            callback(null, arr)
+        })
+    },
+    login(userName, passWord, callback) {
+        fs.readFile(userPath, 'utf-8', (err, data) => {
+            if (err) {
+                return callback(err)
+            }
+            let loginInfo = JSON.parse(data).find(item => item.name === userName && item.password === passWord)
+            callback(null, loginInfo)
         })
     }
 }
