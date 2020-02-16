@@ -9,6 +9,7 @@ router.use(bodyParser.urlencoded({
 }))
 
 router.post('/publish', (req, res) => {
+    console.log(req.body);
 
     msg.publish(req.body, info => {
         if (info) {
