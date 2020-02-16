@@ -46,10 +46,13 @@ module.exports = {
             if (!loginInfo) {
                 return callback({
                     code: 404,
-                    msg: '获取失败'
+                    msg: '用户名或密码错误'
                 })
             }
-            callback(null, loginInfo)
+            callback(null, {
+                code: 200,
+                msg: '登陆成功'
+            })
         })
     }
 }

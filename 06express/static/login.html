@@ -50,11 +50,14 @@
       }
       // 请求
       $.post('http://127.0.0.1:3000/login', {
-        name: name,
-        password: password
+        name,
+        password
       }).then((res) => {
         if (res.code === 200) {
-          location.href = `./index.html?id=${res}`
+          alert(res.msg)
+          location.href = `./index.html`
+        } else {
+          alert(res.msg)
         }
       })
     });

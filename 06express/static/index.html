@@ -68,19 +68,9 @@
   <script>
     // 添加留言
     $('#btn_send').click(() => {
-
       // 1. 获取用户输入 
       let name = $("#txt_name").text().trim()
       let content = $("#txt_content").val().trim()
-      $("#messages").append(`
-        <li class="media">
-            <img class="mr-3" src="./assets/avatar.png" alt="张三" />
-            <div class="media-body">
-              <h4>张三</h4>
-              <p>哈哈哈哈哈哈哈哈哈哈哈</p>
-              <p>2019-06-07</p>
-            </div>
-          </li>`)
 
       $('.main').animate({
         scrollTop: $('#messages').height()

@@ -67,7 +67,7 @@
         processData: false,
         success: (res) => {
           alert(res.msg)
-          location.href = './login.html'
+          location.href = `./login.html?id=${res.data.id}`
         }
       })
     });
