@@ -62,19 +62,28 @@ router.post('/login', (req, res) => {
 })
 
 router.get('/getInfo', (req, res) => {
-    let id = req.query.id
-    console.log(id);
 
-    user.get(id, (err, data) => {
-        if (err) {
-            return res.status(500).send(err)
-        }
-        delete data.password
-        res.send({
-            code: 200,
-            data: data,
-            msg: '获取成功'
+    if (!req.session.isLogin) {
+        return res.send({
+            code: 400,
+            msg: '未登陆'
         })
+    }
+    res.send({
+        code: 200,
+        data: {
+            name: req.session.name
+        },
+        msg: '用户已登陆'
+    })
+
+})
+// 退出就是删除session
+router.get('/loginOut', (req, res) => {
+    req.session.destroy()
+    res.send({
+        code: 200,
+        msg: '删除成功'
     })
 })
 
