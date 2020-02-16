@@ -24,8 +24,7 @@ router.use(bodyParser.urlencoded({
 router.use(session(conf));
 
 router.post('/add', upload.single('cover'), (req, res) => {
-    console.log(req.body);
-    console.log(req.file);
+
     let userdata = {
         id: Date.now() + Math.random(),
         name: req.body.name,
