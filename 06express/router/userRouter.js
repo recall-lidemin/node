@@ -3,6 +3,7 @@ const multer = require('multer')
 const bodyParser = require('body-parser')
 const user = require('../util/user')
 const session = require('express-session')
+const sql = require('../util/sql')
 
 const router = express.Router()
 let conf = {
@@ -50,14 +51,31 @@ router.post('/login', (req, res) => {
         name,
         password
     } = req.body
-    user.login(name, password, (err, data) => {
+    let sqlStr = `select * from user where name='${name}' and password='${password}'`
+    sql.loginSql(sqlStr, (err, data) => {
         if (err) {
-            return res.send(err)
+            return res.send({
+                code: 400,
+                msg: '用户名或密码错误'
+            })
         }
-        req.session.isLogin = true
-        req.session.name = name
-        res.send(data)
+        if (data.length > 0) {
+            req.session.isLogin = true
+            req.session.name = name
+            res.send({
+                code: 200,
+                msg: '登陆成功'
+            })
+        }
     })
+    // user.login(name, password, (err, data) => {
+    //     if (err) {
+    //         return res.send(err)
+    //     }
+    //     req.session.isLogin = true
+    //     req.session.name = name
+    //     res.send(data)
+    // })
 })
 
 router.get('/getInfo', (req, res) => {

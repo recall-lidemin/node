@@ -1,3 +1,9 @@
+/**
+ * 
+ * 用户信息操作模块
+ * 
+ *  */
+
 const fs = require('fs')
 const path = require('path')
 
