@@ -66,12 +66,18 @@
   </div>
   <button id="btn">Get请求</button>
   <button id="btn1">Get请求22</button>
+  <button id="post">POST请求22</button>
 
   <script src="./jquery-1.8.1.js"></script>
   <script>
     $('#btn').click(() => {
-      $.get('http://127.0.0.1:3000/get').then(res => {
-
+      $.get('http://127.0.0.1:8080/getApi').then(res => {
+        console.log(res);
+        if (res.code === 200) {
+          alert(1)
+        } else {
+          alert(2)
+        }
       })
     })
 
@@ -85,6 +91,18 @@
         dataType: 'jsonp',
       }).then(res => {
         console.log(res);
+      })
+    })
+
+    $('#post').click(() => {
+      $.post('http://127.0.0.1:8080/postApi').then(res => {
+        console.log(res);
+
+        if (res.code === 200) {
+          alert(1)
+        } else {
+          alert(2)
+        }
       })
     })
   </script>
