@@ -11,11 +11,12 @@
     <h1>哈哈哈</h1>
 </body>
 <script>
-    // JSONP原理
+    // JSONP原理，准备一个回调函数，接收请求回来的数据
     function fn(res) {
         console.log(res);
     }
 </script>
+<!-- 使用script标签的src属性发送请求,传入一个回调函数 -->
 <script src="http://127.0.0.1:8081/jsonp?callback=fn"></script>
 
 </html>
